@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Red Eléctrica CDMX</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Iconos -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <div class="brand-name">
+                <span>Red Eléctrica</span>
+                <strong>CDMX</strong>
+            </div>
+
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="#" class="nav-link active">
+                <i class="fa-solid fa-house"></i>
+                Inicio
+            </a>
+
+            <a href="#mapa" class="nav-link">
+                <i class="fa-regular fa-map"></i>
+                Mapa
+            </a>
+
+            <a href="#consulta" class="nav-link">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Consulta
+            </a>
+
+            <a href="#estadisticas" class="nav-link">
+                <i class="fa-solid fa-chart-column"></i>
+                Estadísticas
+            </a>
+
+        </nav>
+
+
+        <button class="account-button">
+
+            <i class="fa-regular fa-user"></i>
+
+            <span>Acceso personal CFE</span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </button>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="consulta">
+
+        <div class="hero-background"></div>
+
+        <div class="hero-content">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                Sistema en operación
+
+            </div>
+
+
+            <h1>
+                ¿Hay riesgo de apagón
+                <br>
+                en tu zona?
+            </h1>
+
+
+            <p>
+                Consulta el estado de la red eléctrica
+                por colonia, código postal o número de servicio.
+            </p>
+
+
+            <form class="search-box" id="searchForm">
+
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Ej. Narvarte Poniente, Benito Juárez"
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Consultar
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTENIDO ================= -->
+
+    <main class="container">
+
+
+        <!-- ================= MÉTRICAS ================= -->
+
+        <section class="metrics">
+
+            <article class="metric-card">
+
+                <div class="metric-icon green">
+                    <i class="fa-regular fa-clipboard"></i>
+                </div>
+
+                <div class="metric-content">
+
+                    <span class="metric-value">38</span>
+
+                    <span class="metric-label">
+                        Reportes activos hoy
+                    </span>
+
+                    <span class="metric-trend positive">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        12%
+                        <small>respecto a ayer</small>
+                    </span>
+
+                </div>
+
+                <div class="mini-chart">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon red">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+
+                <div class="metric-content">
+
+                    <span class="metric-value">2</span>
+
+                    <span class="metric-label">
+                        Alcaldías con riesgo alto
+                    </span>
+
+                    <span class="metric-trend negative">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        1 zona
+                        <small>respecto al mes anterior</small>
+                    </span>
+
+                </div>
+
+                <div class="mini-chart red-chart">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon blue">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+                <div class="metric-content">
+
+                    <span class="metric-value">3.4 h</span>
+
+                    <span class="metric-label">
+                        Atención promedio del mes
+                    </span>
+
+                    <span class="metric-trend positive blue-text">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        0.6 h
+                        <small>respecto al mes anterior</small>
+                    </span>
+
+                </div>
+
+                <div class="mini-chart blue-chart">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section class="dashboard">
+
+
+            <!-- ================= MAPA ================= -->
+
+            <article class="card map-card" id="mapa">
+
+                <div class="card-header">
+
+                    <h2>
+                        Mapa de riesgo en la CDMX
+                    </h2>
+
+                    <div class="map-tabs">
+
+                        <button class="map-tab active">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Riesgo
+                        </button>
+
+                        <button class="map-tab">
+                            <i class="fa-regular fa-clipboard"></i>
+                            Reportes
+                        </button>
+
+                        <button class="map-tab">
+                            <i class="fa-solid fa-tower-broadcast"></i>
+                            Subestaciones
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="map">
+
+                    <!-- Decoración de calles -->
+                    <div class="street street-1"></div>
+                    <div class="street street-2"></div>
+                    <div class="street street-3"></div>
+                    <div class="street street-4"></div>
+                    <div class="street street-5"></div>
+
+
+                    <!-- Zonas -->
+
+                    <div class="zone-area zone-1"></div>
+                    <div class="zone-area zone-2"></div>
+                    <div class="zone-area zone-3"></div>
+                    <div class="zone-area zone-4"></div>
+                    <div class="zone-area zone-5"></div>
+
+
+                    <!-- Nombres de alcaldías -->
+
+                    <span class="map-label label-1">
+                        Azcapotzalco
+                    </span>
+
+                    <span class="map-label label-2">
+                        Gustavo A. Madero
+                    </span>
+
+                    <span class="map-label label-3">
+                        Miguel Hidalgo
+                    </span>
+
+                    <span class="map-label label-4">
+                        Cuauhtémoc
+                    </span>
+
+                    <span class="map-label label-5">
+                        Venustiano Carranza
+                    </span>
+
+                    <span class="map-label label-6">
+                        Benito Juárez
+                    </span>
+
+                    <span class="map-label label-7">
+                        Coyoacán
+                    </span>
+
+                    <span class="map-label label-8">
+                        Iztapalapa
+                    </span>
+
+                    <span class="map-label label-9">
+                        Tlalpan
+                    </span>
+
+
+                    <!-- Marcadores -->
+
+                    <button class="map-pin green pin-1">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+
+                    <button class="map-pin yellow pin-2">
+                        !
+                    </button>
+
+                    <button class="map-pin red pin-3">
+                        !
+                    </button>
+
+                    <button class="map-pin yellow pin-4">
+                        !
+                    </button>
+
+                    <button class="map-pin red pin-5">
+                        !
+                    </button>
+
+                    <button class="map-pin green pin-6">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+
+                    <button class="map-pin user-pin">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </button>
+
+
+                    <!-- Controles -->
+
+                    <div class="map-controls">
+
+                        <button>
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+
+                        <button>
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+
+                        <button>
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                        </button>
+
+                    </div>
+
+
+                    <!-- Leyenda -->
+
+                    <div class="map-legend">
+
+                        <span>
+                            <i class="legend-dot normal"></i>
+                            Operación normal
+                        </span>
+
+                        <span>
+                            <i class="legend-dot medium"></i>
+                            Riesgo medio
+                        </span>
+
+                        <span>
+                            <i class="legend-dot high"></i>
+                            Riesgo alto
+                        </span>
+
+                        <span>
+                            <i class="legend-dot location"></i>
+                            Tu zona
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ================= COLUMNA DERECHA ================= -->
+
+            <aside class="side-column">
+
+
+                <!-- ================= TU ZONA ================= -->
+
+                <article class="card zone-card">
+
+                    <h2>
+                        Tu zona
+                    </h2>
+
+
+                    <div class="location-title">
+
+                        <div class="location-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+
+                            <h3 id="zoneName">
+                                Narvarte Poniente
+                            </h3>
+
+                            <span id="zoneCity">
+                                Benito Juárez
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="risk-status">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <span>
+                            Riesgo medio
+                        </span>
+
+                    </div>
+
+
+                    <p class="report-message">
+
+                        Hay
+                        <strong>1 reporte</strong>
+                        activo en tu zona.
+
+                    </p>
+
+
+                    <div class="updated">
+
+                        <i class="fa-regular fa-clock"></i>
+
+                        Actualizado hace 12 min
+
+                    </div>
+
+
+                    <div class="zone-divider"></div>
+
+
+                    <!-- Nivel -->
+
+                    <div class="risk-level">
+
+                        <strong>
+                            Nivel de riesgo
+                        </strong>
+
+
+                        <div class="risk-bar">
+
+                            <div class="risk-position"></div>
+
+                        </div>
+
+
+                        <div class="risk-scale">
+
+                            <span>Bajo</span>
+
+                            <span>Medio</span>
+
+                            <span>Alto</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Reporte -->
+
+                    <div class="active-report">
+
+                        <div class="report-icon">
+
+                            <i class="fa-regular fa-clipboard"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Reporte activo
+                            </strong>
+
+                            <p>
+                                Falla en línea de distribución
+                                <br>
+                                Col. Narvarte Poniente
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+
+                    <button class="details-button">
+
+                        Ver detalles
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </article>
+
+
+                <!-- ================= GRÁFICA ================= -->
+
+                <article class="card chart-card" id="estadisticas">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h2>
+                                Reportes últimos 30 días
+                            </h2>
+
+                            <span>
+                                Tendencia de incidencias
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-result">
+
+                            <strong>
+                                38 reportes
+                            </strong>
+
+                            <small>
+                                ↑ 14% vs. mes anterior
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart">
+
+                        <div class="chart-grid">
+
+                            <span>40</span>
+                            <span>30</span>
+                            <span>20</span>
+                            <span>10</span>
+                            <span>0</span>
+
+                        </div>
+
+
+                        <div class="bars">
+
+                            <div class="bar" style="height:32%"></div>
+                            <div class="bar" style="height:45%"></div>
+                            <div class="bar" style="height:60%"></div>
+                            <div class="bar" style="height:38%"></div>
+                            <div class="bar" style="height:52%"></div>
+                            <div class="bar" style="height:35%"></div>
+                            <div class="bar" style="height:67%"></div>
+                            <div class="bar" style="height:55%"></div>
+                            <div class="bar" style="height:72%"></div>
+                            <div class="bar" style="height:48%"></div>
+                            <div class="bar" style="height:82%"></div>
+                            <div class="bar highlight" style="height:95%"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-dates">
+
+                        <span>1 ene</span>
+                        <span>8 ene</span>
+                        <span>15 ene</span>
+                        <span>22 ene</span>
+                        <span>30 ene</span>
+
+                    </div>
+
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
