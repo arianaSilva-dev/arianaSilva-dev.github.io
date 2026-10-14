@@ -99,7 +99,7 @@
 
             <p>
                 Consulta el estado de la red eléctrica
-                por colonia, código postal o número de servicio.
+                por colonia, alcaldía o código postal.
             </p>
 
 
@@ -110,7 +110,7 @@
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Ej. Narvarte Poniente, Benito Juárez"
+                    placeholder="Ej. Narvarte Poniente, Benito Juárez o 03020"
                     autocomplete="off"
                 >
 
@@ -120,6 +120,21 @@
                 </button>
 
             </form>
+
+
+            <div class="search-suggestions">
+
+                <span>Prueba con:</span>
+
+                <button type="button" data-consulta="Narvarte Poniente">Narvarte Poniente</button>
+
+                <button type="button" data-consulta="Iztapalapa">Iztapalapa</button>
+
+                <button type="button" data-consulta="Coyoacán">Coyoacán</button>
+
+                <button type="button" data-consulta="06700">06700</button>
+
+            </div>
 
         </div>
 
