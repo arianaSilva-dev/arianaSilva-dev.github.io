@@ -813,19 +813,433 @@ navLinks.forEach(link => {
 });
 
 
-/* ================= BOTÓN CFE ================= */
+/* ================= LOGIN CFE ================= */
+
+/*
+    OJO: esto es una maqueta. Las credenciales están en el
+    código, así que cualquiera puede verlas. Un login real
+    debe validarse en un servidor (con contraseñas cifradas).
+*/
+
+const USUARIOS_DEMO = [
+
+    {
+        usuario: "cfe1001",
+        password: "demo1234",
+        nombre: "Operador CFE"
+    }
+
+];
+
+const MAX_INTENTOS = 3;
+
+const SEGUNDOS_BLOQUEO = 30;
+
 
 const accountButton =
     document.querySelector(".account-button");
 
+const accountMenu =
+    document.getElementById("accountMenu");
 
-accountButton.addEventListener("click", () => {
+const accountMenuName =
+    document.getElementById("accountMenuName");
 
-    mostrarMensaje(
-        "Acceso al portal personal CFE."
+const logoutButton =
+    document.getElementById("logoutButton");
+
+const loginModal =
+    document.getElementById("loginModal");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginUser =
+    document.getElementById("loginUser");
+
+const loginPass =
+    document.getElementById("loginPass");
+
+const loginError =
+    document.getElementById("loginError");
+
+const loginSubmit =
+    document.getElementById("loginSubmit");
+
+const togglePass =
+    document.getElementById("togglePass");
+
+const closeLogin =
+    document.getElementById("closeLogin");
+
+
+let sesion = null;
+
+let intentosFallidos = 0;
+
+let bloqueadoHasta = 0;
+
+let verificando = false;
+
+const textoLogin = loginSubmit.innerHTML;
+
+
+/* Recuperar la sesión si ya había una en esta pestaña */
+
+try {
+
+    sesion = JSON.parse(
+        sessionStorage.getItem("sesionCFE")
     );
 
+} catch (error) {
+
+    sesion = null;
+
+}
+
+
+/* ---------- Abrir y cerrar ---------- */
+
+function abrirLogin() {
+
+    loginModal.classList.add("open");
+
+    loginModal.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+
+    setTimeout(() => loginUser.focus(), 50);
+
+}
+
+
+function cerrarLogin() {
+
+    loginModal.classList.remove("open");
+
+    loginModal.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+
+    loginForm.reset();
+
+    mostrarErrorLogin("");
+
+    loginPass.type = "password";
+
+    togglePass.innerHTML = '<i class="fa-regular fa-eye"></i>';
+
+    accountButton.focus();
+
+}
+
+
+closeLogin.addEventListener("click", cerrarLogin);
+
+
+/* Clic fuera de la tarjeta */
+
+loginModal.addEventListener("click", event => {
+
+    if (event.target === loginModal) {
+
+        cerrarLogin();
+    }
+
 });
+
+
+document.addEventListener("keydown", event => {
+
+    if (!loginModal.classList.contains("open")) {
+
+        accountMenu.classList.remove("open");
+
+        return;
+    }
+
+
+    if (event.key === "Escape") {
+
+        cerrarLogin();
+
+        return;
+    }
+
+
+    /* Mantener el Tab dentro de la ventana */
+
+    if (event.key === "Tab") {
+
+        const enfocables = loginModal.querySelectorAll(
+            "button:not([disabled]), input"
+        );
+
+        const primero = enfocables[0];
+
+        const ultimo = enfocables[enfocables.length - 1];
+
+
+        if (event.shiftKey && document.activeElement === primero) {
+
+            event.preventDefault();
+
+            ultimo.focus();
+
+        } else if (!event.shiftKey && document.activeElement === ultimo) {
+
+            event.preventDefault();
+
+            primero.focus();
+
+        }
+
+    }
+
+});
+
+
+/* ---------- Mostrar / ocultar contraseña ---------- */
+
+togglePass.addEventListener("click", () => {
+
+    const oculta = loginPass.type === "password";
+
+    loginPass.type = oculta ? "text" : "password";
+
+    togglePass.innerHTML = oculta
+        ? '<i class="fa-regular fa-eye-slash"></i>'
+        : '<i class="fa-regular fa-eye"></i>';
+
+    togglePass.setAttribute(
+        "aria-label",
+        oculta ? "Ocultar contraseña" : "Mostrar contraseña"
+    );
+
+    loginPass.focus();
+
+});
+
+
+/* ---------- Errores ---------- */
+
+function mostrarErrorLogin(texto) {
+
+    loginError.textContent = texto;
+
+    loginError.classList.toggle("visible", texto !== "");
+
+}
+
+
+/* ---------- Enviar formulario ---------- */
+
+loginForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+
+    if (verificando) {
+
+        return;
+    }
+
+
+    /* Bloqueo temporal por demasiados intentos */
+
+    const restante = Math.ceil((bloqueadoHasta - Date.now()) / 1000);
+
+    if (restante > 0) {
+
+        mostrarErrorLogin(
+            `Demasiados intentos. Intenta de nuevo en ${restante} s.`
+        );
+
+        return;
+    }
+
+
+    const usuario = loginUser.value.trim().toLowerCase();
+
+    const password = loginPass.value;
+
+
+    if (usuario === "" || password === "") {
+
+        mostrarErrorLogin(
+            "Escribe tu número de empleado y tu contraseña."
+        );
+
+        (usuario === "" ? loginUser : loginPass).focus();
+
+        return;
+    }
+
+
+    mostrarErrorLogin("");
+
+    verificando = true;
+
+    loginSubmit.disabled = true;
+
+    loginSubmit.innerHTML =
+        'Verificando <i class="fa-solid fa-spinner fa-spin"></i>';
+
+
+    /* Pequeña espera para simular la validación en el servidor */
+
+    setTimeout(() => {
+
+        const encontrado = USUARIOS_DEMO.find(item =>
+            item.usuario === usuario &&
+            item.password === password
+        );
+
+
+        verificando = false;
+
+        loginSubmit.disabled = false;
+
+        loginSubmit.innerHTML = textoLogin;
+
+
+        if (encontrado) {
+
+            iniciarSesion(encontrado);
+
+            return;
+        }
+
+
+        intentosFallidos++;
+
+        loginPass.value = "";
+
+        loginPass.focus();
+
+
+        if (intentosFallidos >= MAX_INTENTOS) {
+
+            bloqueadoHasta =
+                Date.now() + SEGUNDOS_BLOQUEO * 1000;
+
+            intentosFallidos = 0;
+
+            mostrarErrorLogin(
+                `Demasiados intentos. Intenta de nuevo en ${SEGUNDOS_BLOQUEO} s.`
+            );
+
+        } else {
+
+            mostrarErrorLogin(
+                "Número de empleado o contraseña incorrectos."
+            );
+
+        }
+
+    }, 800);
+
+});
+
+
+/* ---------- Sesión ---------- */
+
+function iniciarSesion(usuario) {
+
+    sesion = { nombre: usuario.nombre };
+
+    sessionStorage.setItem(
+        "sesionCFE",
+        JSON.stringify(sesion)
+    );
+
+    intentosFallidos = 0;
+
+    cerrarLogin();
+
+    actualizarBotonCuenta();
+
+    mostrarMensaje(`Bienvenido, ${sesion.nombre}.`);
+
+}
+
+
+function cerrarSesion() {
+
+    sesion = null;
+
+    sessionStorage.removeItem("sesionCFE");
+
+    accountMenu.classList.remove("open");
+
+    actualizarBotonCuenta();
+
+    mostrarMensaje("Sesión cerrada correctamente.");
+
+}
+
+
+function actualizarBotonCuenta() {
+
+    const icono = accountButton.querySelector("i");
+
+    const texto = accountButton.querySelector("span");
+
+
+    if (sesion) {
+
+        icono.className = "fa-solid fa-user-check";
+
+        texto.textContent = sesion.nombre;
+
+        accountMenuName.textContent = sesion.nombre;
+
+    } else {
+
+        icono.className = "fa-regular fa-user";
+
+        texto.textContent = "Acceso personal CFE";
+
+    }
+
+}
+
+
+accountButton.addEventListener("click", event => {
+
+    event.stopPropagation();
+
+
+    if (sesion) {
+
+        accountMenu.classList.toggle("open");
+
+    } else {
+
+        abrirLogin();
+
+    }
+
+});
+
+
+logoutButton.addEventListener("click", cerrarSesion);
+
+
+/* Cerrar el menú al hacer clic en cualquier otro lado */
+
+document.addEventListener("click", event => {
+
+    if (!accountMenu.contains(event.target)) {
+
+        accountMenu.classList.remove("open");
+    }
+
+});
+
+
+actualizarBotonCuenta();
 
 
 /* ================= DETALLES ================= */
