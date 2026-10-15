@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta · Red Eléctrica CDMX</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="consulta.css">
+
+    <!-- Iconos -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <div class="brand-name">
+                <span>Red Eléctrica</span>
+                <strong>CDMX</strong>
+            </div>
+
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="index.html" class="nav-link">
+                <i class="fa-solid fa-house"></i>
+                Inicio
+            </a>
+
+            <a href="index.html#mapa" class="nav-link">
+                <i class="fa-regular fa-map"></i>
+                Mapa
+            </a>
+
+            <a href="consulta.html" class="nav-link active">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Consulta
+            </a>
+
+            <a href="index.html#estadisticas" class="nav-link">
+                <i class="fa-solid fa-chart-column"></i>
+                Estadísticas
+            </a>
+
+        </nav>
+
+
+        <div class="account-wrapper">
+
+            <button
+                class="account-button"
+                type="button"
+                aria-haspopup="dialog"
+            >
+
+                <i class="fa-regular fa-user"></i>
+
+                <span>Acceso personal CFE</span>
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </button>
+
+
+            <!-- Menú de sesión (solo aparece con sesión iniciada) -->
+
+            <div class="account-menu" id="accountMenu">
+
+                <div class="account-menu-info">
+                    <small>Sesión iniciada como</small>
+                    <strong id="accountMenuName">Operador CFE</strong>
+                </div>
+
+                <button type="button" id="logoutButton">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO / BUSCADOR ================= -->
+
+    <section class="hero consulta-hero">
+
+        <div class="hero-background"></div>
+
+        <div class="hero-content">
+
+            <div class="analysis-chip">
+                <i class="fa-regular fa-clock"></i>
+                <span id="analysisChip">Último análisis</span>
+            </div>
+
+
+            <h1>
+                Consulta el estado
+                <br>
+                de tu zona
+            </h1>
+
+
+            <p>
+                Revisa si tu colonia está en operación normal, en riesgo
+                de apagón o con un apagón reportado. La red se analiza
+                automáticamente cada 3 horas.
+            </p>
+
+
+            <!-- Modo de búsqueda -->
+
+            <div class="consulta-tabs" role="tablist" aria-label="Tipo de consulta">
+
+                <button
+                    type="button"
+                    class="consulta-tab active"
+                    role="tab"
+                    aria-selected="true"
+                    data-modo="colonia"
+                >
+                    <i class="fa-solid fa-location-dot"></i>
+                    Por colonia
+                </button>
+
+                <button
+                    type="button"
+                    class="consulta-tab"
+                    role="tab"
+                    aria-selected="false"
+                    data-modo="servicio"
+                >
+                    <i class="fa-solid fa-hashtag"></i>
+                    Por número de servicio
+                </button>
+
+            </div>
+
+
+            <!-- Formulario: colonia -->
+
+            <form class="consulta-form" id="formColonia" novalidate>
+
+                <label class="field">
+                    <span>Alcaldía</span>
+                    <select id="selAlcaldia">
+                        <option value="">Todas las alcaldías</option>
+                    </select>
+                </label>
+
+                <label class="field grow">
+                    <span>Colonia</span>
+                    <input
+                        type="text"
+                        id="inpColonia"
+                        list="listaColonias"
+                        placeholder="Ej. Narvarte Poniente"
+                        autocomplete="off"
+                    >
+                    <datalist id="listaColonias"></datalist>
+                </label>
+
+                <button type="submit" class="consulta-submit">
+                    Consultar
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+
+            <!-- Formulario: número de servicio -->
+
+            <form class="consulta-form" id="formServicio" novalidate hidden>
+
+                <label class="field grow">
+                    <span>Número de servicio (12 dígitos, aparece en tu recibo)</span>
+                    <input
+                        type="text"
+                        id="inpServicio"
+                        inputmode="numeric"
+                        maxlength="14"
+                        placeholder="Ej. 010000000001"
+                        autocomplete="off"
+                    >
+                </label>
+
+                <button type="submit" class="consulta-submit">
+                    Consultar
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+
+            <div class="form-hint" id="formHint" role="alert"></div>
+
+
+            <div class="search-suggestions">
+
+                <span>Prueba con:</span>
+
+                <button type="button" data-q="Lindavista">Lindavista</button>
+
+                <button type="button" data-q="Santa Martha Acatitla">Santa Martha Acatitla</button>
+
+                <button type="button" data-q="Narvarte Poniente">Narvarte Poniente</button>
+
+                <button type="button" data-q="Del Valle Centro">Del Valle Centro</button>
+
+                <button type="button" data-q="010000000001">N.º 010000000001</button>
+
+            </div>
+
+
+            <div class="search-suggestions recientes" id="recientes" hidden>
+
+                <span>Consultas recientes:</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTENIDO ================= -->
+
+    <main class="container">
+
+        <section class="consulta-layout">
+
+
+            <!-- ================= RESULTADO ================= -->
+
+            <div class="consulta-main">
+
+                <article
+                    class="card result-card"
+                    id="resultCard"
+                    aria-live="polite"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            <i class="fa-solid fa-magnifying-glass-location"></i>
+                        </div>
+
+                        <h2>¿Cómo está tu zona?</h2>
+
+                        <p>
+                            Elige una alcaldía y escribe tu colonia, o ingresa
+                            tu número de servicio. Aquí verás el estado de la
+                            red en tu zona y, si existe, el avance del reporte.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="card nearby-card" id="nearbyCard" hidden>
+
+                    <h2 id="nearbyTitle">Otras colonias</h2>
+
+                    <ul class="nearby-list" id="nearbyList"></ul>
+
+                </article>
+
+            </div>
+
+
+            <!-- ================= LATERAL ================= -->
+
+            <aside class="side-column">
+
+                <article class="card info-card">
+
+                    <h2>¿Qué significa cada estado?</h2>
+
+                    <ul class="state-guide">
+
+                        <li>
+                            <i class="legend-dot normal"></i>
+                            <div>
+                                <strong>Operación normal</strong>
+                                <p>Sin reportes activos ni alertas en el último análisis.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <i class="legend-dot medium"></i>
+                            <div>
+                                <strong>En riesgo</strong>
+                                <p>El análisis detectó carga elevada o mantenimiento vencido en un transformador de la zona.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <i class="legend-dot high"></i>
+                            <div>
+                                <strong>Apagón reportado</strong>
+                                <p>Hay un reporte activo de falla de suministro en la zona.</p>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <article class="card info-card">
+
+                    <h2>¿Cómo se calcula?</h2>
+
+                    <ol class="how-steps">
+
+                        <li>
+                            <span>1</span>
+                            Cada 3 horas se revisa la carga de los transformadores
+                            frente a su capacidad.
+                        </li>
+
+                        <li>
+                            <span>2</span>
+                            También se considera cuánto tiempo llevan sin mantenimiento.
+                        </li>
+
+                        <li>
+                            <span>3</span>
+                            Si se supera el umbral, se genera una alerta preventiva y
+                            la zona pasa a “En riesgo”.
+                        </li>
+
+                    </ol>
+
+                    <small class="demo-note">
+                        Los umbrales mostrados son valores de ejemplo,
+                        sujetos a validación con CFE.
+                    </small>
+
+                </article>
+
+
+                <article class="card info-card privacy-card">
+
+                    <h2>
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Tu privacidad
+                    </h2>
+
+                    <p>
+                        Solo mostramos el estado de la zona. No mostramos
+                        direcciones, teléfonos ni datos de quienes reportan,
+                        ni información de tu servicio.
+                    </p>
+
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <footer class="site-note">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        Proyecto académico (ESCOM-IPN). No es un portal oficial de CFE ni
+        sustituye sus canales: para reportar una falla utiliza los medios
+        oficiales de CFE. Datos de demostración.
+
+    </footer>
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <div
+        class="login-overlay"
+        id="loginModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="login-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="loginTitle"
+        >
+
+            <button
+                type="button"
+                class="login-close"
+                id="closeLogin"
+                aria-label="Cerrar"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            <div class="login-logo">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <h2 id="loginTitle">Acceso personal CFE</h2>
+
+            <p class="login-subtitle">
+                Ingresa con tu cuenta institucional
+                para consultar y gestionar reportes.
+            </p>
+
+
+            <form id="loginForm" novalidate>
+
+                <label for="loginUser">
+                    Número de empleado
+                </label>
+
+                <div class="login-field">
+
+                    <i class="fa-regular fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="loginUser"
+                        placeholder="Ej. CFE1001"
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <label for="loginPass">
+                    Contraseña
+                </label>
+
+                <div class="login-field">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="loginPass"
+                        placeholder="Tu contraseña"
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        type="button"
+                        id="togglePass"
+                        aria-label="Mostrar contraseña"
+                    >
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="login-error"
+                    id="loginError"
+                    role="alert"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                    id="loginSubmit"
+                >
+                    Iniciar sesión
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+
+            <p class="login-hint">
+                <i class="fa-solid fa-circle-info"></i>
+                Versión de demostración &middot;
+                empleado <strong>CFE1001</strong>
+                &middot; contraseña <strong>demo1234</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="consulta.js"></script>
+
+</body>
+</html>

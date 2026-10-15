@@ -1,0 +1,1269 @@
+/* =====================================================
+   RED ELÉCTRICA CDMX · CONSULTA
+   Se carga DESPUÉS de styles.css y reutiliza sus variables
+   (--green, --yellow, --red, --border, etc.).
+===================================================== */
+
+[hidden] {
+
+    display: none !important;
+}
+
+
+/* ================= HERO ================= */
+
+.consulta-hero {
+
+    min-height: 0;
+
+    padding: 38px 7% 34px;
+}
+
+
+.consulta-hero .hero-content {
+
+    max-width: 760px;
+}
+
+
+.consulta-hero .hero-background {
+
+    pointer-events: none;
+}
+
+
+.analysis-chip {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 8px 14px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #4b5a53;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
+
+    margin-bottom: 16px;
+}
+
+
+.analysis-chip i {
+
+    color: var(--green);
+}
+
+
+.consulta-hero h1 {
+
+    font-size: 36px;
+}
+
+
+.consulta-hero p {
+
+    margin-bottom: 20px;
+}
+
+
+/* ================= MODO DE BÚSQUEDA ================= */
+
+.consulta-tabs {
+
+    display: inline-flex;
+
+    gap: 6px;
+
+    padding: 4px;
+
+    background: rgba(255, 255, 255, .7);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    margin-bottom: 12px;
+}
+
+
+.consulta-tab {
+
+    border: none;
+
+    background: transparent;
+
+    color: #64716b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    padding: 9px 15px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.consulta-tab:hover {
+
+    color: var(--green);
+}
+
+
+.consulta-tab.active {
+
+    background: var(--green);
+
+    color: white;
+}
+
+
+/* ================= FORMULARIOS ================= */
+
+.consulta-form {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 10px;
+
+    background: white;
+
+    border: 1px solid #dce6e0;
+
+    border-radius: 18px;
+
+    padding: 12px;
+
+    box-shadow: 0 8px 25px rgba(31, 70, 53, .08);
+
+    max-width: 720px;
+}
+
+
+.consulta-form .field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 190px;
+}
+
+
+.consulta-form .field.grow {
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.consulta-form .field > span {
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: var(--muted);
+
+    padding-left: 2px;
+}
+
+
+.consulta-form input,
+.consulta-form select {
+
+    height: 42px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    padding: 0 12px;
+
+    font-size: 13px;
+
+    color: var(--text);
+
+    background: white;
+
+    outline: none;
+
+    transition: .2s ease;
+}
+
+
+.consulta-form input:focus,
+.consulta-form select:focus {
+
+    border-color: var(--green);
+
+    box-shadow: 0 0 0 3px var(--green-light);
+}
+
+
+.consulta-form input.invalid {
+
+    border-color: var(--red);
+
+    box-shadow: 0 0 0 3px var(--red-light);
+}
+
+
+.consulta-submit {
+
+    height: 42px;
+
+    border: none;
+
+    background: var(--green);
+
+    color: white;
+
+    border-radius: 11px;
+
+    padding: 0 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .2s ease;
+}
+
+
+.consulta-submit:hover {
+
+    background: var(--green-dark);
+}
+
+
+.consulta-submit:disabled {
+
+    opacity: .8;
+
+    cursor: wait;
+}
+
+
+.form-hint {
+
+    min-height: 18px;
+
+    margin-top: 9px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #c83238;
+}
+
+
+.search-suggestions.recientes {
+
+    margin-top: 8px;
+}
+
+
+.search-suggestions.recientes button {
+
+    color: #4b5a53;
+}
+
+
+.search-suggestions.recientes button:hover {
+
+    color: white;
+}
+
+
+/* ================= LAYOUT ================= */
+
+.consulta-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(300px, .9fr);
+
+    gap: 18px;
+
+    align-items: start;
+}
+
+
+.consulta-main {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* ================= RESULTADO ================= */
+
+.result-card {
+
+    min-height: 330px;
+}
+
+
+.empty-state,
+.loading-state {
+
+    padding: 60px 40px;
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.empty-icon {
+
+    width: 68px;
+
+    height: 68px;
+
+    border-radius: 50%;
+
+    background: var(--green-light);
+
+    color: var(--green);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 28px;
+
+    margin-bottom: 6px;
+}
+
+
+.empty-state h2,
+.loading-state h2 {
+
+    font-size: 19px;
+
+    font-weight: 800;
+}
+
+
+.empty-state p,
+.loading-state p {
+
+    max-width: 440px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    color: var(--muted);
+}
+
+
+.loading-state .spin {
+
+    font-size: 30px;
+
+    color: var(--green);
+}
+
+
+/* ----- Cabecera con el estado ----- */
+
+.result-head {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 22px 26px;
+}
+
+
+.state-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 23px;
+
+    background: rgba(255, 255, 255, .75);
+}
+
+
+.result-head small {
+
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+
+    text-transform: uppercase;
+
+    opacity: .8;
+}
+
+
+.result-head h2 {
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: -.5px;
+
+    margin-top: 3px;
+}
+
+
+.result-head .zone-tag {
+
+    margin-left: auto;
+
+    background: rgba(255, 255, 255, .75);
+
+    border-radius: 20px;
+
+    padding: 7px 13px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.state-normal {
+
+    background: var(--green-light);
+
+    color: var(--green);
+}
+
+
+.state-riesgo {
+
+    background: var(--yellow-light);
+
+    color: #a36d00;
+}
+
+
+.state-apagon {
+
+    background: var(--red-light);
+
+    color: #c83238;
+}
+
+
+/* ----- Cuerpo ----- */
+
+.result-body {
+
+    padding: 24px 26px 26px;
+}
+
+
+.zone-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+
+.zone-title h3 {
+
+    font-size: 18px;
+
+    margin-bottom: 3px;
+}
+
+
+.zone-title span {
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+
+.state-text {
+
+    font-size: 13px;
+
+    line-height: 1.65;
+
+    color: #4b5a53;
+
+    margin-bottom: 20px;
+}
+
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+
+.info-item {
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 13px 14px;
+}
+
+
+.info-item small {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: var(--muted);
+
+    margin-bottom: 6px;
+}
+
+
+.info-item strong {
+
+    font-size: 13px;
+}
+
+
+/* ----- Avance del reporte ----- */
+
+.progress-title {
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 14px;
+}
+
+
+.stepper {
+
+    display: flex;
+
+    list-style: none;
+
+    margin-bottom: 24px;
+}
+
+
+.stepper li {
+
+    flex: 1;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #8c9993;
+
+    text-align: center;
+}
+
+
+.stepper li::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 13px;
+
+    left: -50%;
+
+    width: 100%;
+
+    height: 3px;
+
+    background: var(--border);
+
+    z-index: 0;
+}
+
+
+.stepper li:first-child::before {
+
+    display: none;
+}
+
+
+.stepper .dot {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 28px;
+
+    height: 28px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 3px solid var(--border);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 11px;
+
+    color: white;
+}
+
+
+.stepper li.done,
+.stepper li.current {
+
+    color: var(--text);
+}
+
+
+.stepper li.done::before,
+.stepper li.current::before {
+
+    background: var(--green);
+}
+
+
+.stepper li.done .dot {
+
+    background: var(--green);
+
+    border-color: var(--green);
+}
+
+
+.stepper li.current .dot {
+
+    background: white;
+
+    border-color: var(--green);
+
+    box-shadow: 0 0 0 4px var(--green-light);
+}
+
+
+.stepper li.current .dot::after {
+
+    content: "";
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+}
+
+
+/* ----- Acciones ----- */
+
+.result-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.btn-primary,
+.btn-secondary {
+
+    border-radius: 10px;
+
+    padding: 11px 16px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+
+.btn-primary {
+
+    background: var(--green);
+
+    color: white;
+
+    border: 1px solid var(--green);
+}
+
+
+.btn-primary:hover {
+
+    background: var(--green-dark);
+}
+
+
+.btn-secondary {
+
+    background: white;
+
+    color: var(--green);
+
+    border: 1px solid var(--green);
+}
+
+
+.btn-secondary:hover {
+
+    background: var(--green-light);
+}
+
+
+.source-note {
+
+    font-size: 10px;
+
+    color: var(--muted);
+
+    margin-left: auto;
+
+    align-self: center;
+}
+
+
+/* ----- Resumen por alcaldía ----- */
+
+.alcaldia-counts {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 8px;
+}
+
+
+.count-box {
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    text-align: center;
+}
+
+
+.count-box strong {
+
+    display: block;
+
+    font-size: 26px;
+
+    line-height: 1;
+
+    margin-bottom: 6px;
+}
+
+
+.count-box span {
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* ================= OTRAS COLONIAS ================= */
+
+.nearby-card {
+
+    padding: 19px;
+}
+
+
+.nearby-card h2 {
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+}
+
+
+.nearby-list {
+
+    list-style: none;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+}
+
+
+.nearby-list button {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    padding: 11px 13px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: var(--text);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.nearby-list button:hover {
+
+    border-color: var(--green);
+
+    background: #f7fbf9;
+}
+
+
+.nearby-list .state-label {
+
+    margin-left: auto;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: var(--muted);
+}
+
+
+/* ================= LATERAL ================= */
+
+.info-card {
+
+    padding: 19px;
+}
+
+
+.info-card h2 {
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    margin-bottom: 14px;
+}
+
+
+.state-guide {
+
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+.state-guide li {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: flex-start;
+}
+
+
+.state-guide .legend-dot {
+
+    margin-top: 4px;
+
+    flex-shrink: 0;
+}
+
+
+.state-guide strong {
+
+    font-size: 12px;
+}
+
+
+.state-guide p {
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color: var(--muted);
+
+    margin-top: 2px;
+}
+
+
+.how-steps {
+
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.how-steps li {
+
+    display: flex;
+
+    gap: 11px;
+
+    align-items: flex-start;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+    color: #4b5a53;
+}
+
+
+.how-steps li span {
+
+    width: 22px;
+
+    height: 22px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--green-light);
+
+    color: var(--green);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.demo-note {
+
+    display: block;
+
+    margin-top: 14px;
+
+    font-size: 10px;
+
+    color: var(--muted);
+
+    font-style: italic;
+}
+
+
+.privacy-card {
+
+    background: #f7fbf9;
+}
+
+
+.privacy-card h2 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.privacy-card h2 i {
+
+    color: var(--green);
+}
+
+
+.privacy-card p {
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    color: #4b5a53;
+}
+
+
+/* ================= PIE ================= */
+
+.site-note {
+
+    max-width: 1450px;
+
+    margin: 0 auto;
+
+    padding: 6px 3% 34px;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    color: var(--muted);
+
+    text-align: center;
+}
+
+
+.site-note i {
+
+    color: var(--green);
+
+    margin-right: 5px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+
+    .consulta-layout {
+
+        grid-template-columns: 1fr;
+    }
+
+    .consulta-layout .side-column {
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .consulta-layout .privacy-card {
+
+        grid-column: 1 / -1;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .consulta-hero {
+
+        padding: 30px 22px 26px;
+    }
+
+    .consulta-hero h1 {
+
+        font-size: 29px;
+    }
+
+    .consulta-form {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .consulta-form .field {
+
+        min-width: 0;
+    }
+
+    .consulta-submit {
+
+        justify-content: center;
+    }
+
+    .consulta-tabs {
+
+        display: flex;
+    }
+
+    .consulta-tab {
+
+        flex: 1;
+
+        justify-content: center;
+
+        font-size: 11px;
+
+        padding: 9px 8px;
+    }
+
+    .consulta-layout .side-column {
+
+        grid-template-columns: 1fr;
+    }
+
+    .result-head {
+
+        flex-wrap: wrap;
+
+        padding: 18px;
+    }
+
+    .result-head .zone-tag {
+
+        margin-left: 0;
+    }
+
+    .result-body {
+
+        padding: 18px;
+    }
+
+    .info-grid,
+    .alcaldia-counts {
+
+        grid-template-columns: 1fr;
+    }
+
+    .nearby-list {
+
+        grid-template-columns: 1fr;
+    }
+
+    .stepper li {
+
+        font-size: 9px;
+    }
+
+    .source-note {
+
+        margin-left: 0;
+    }
+}
